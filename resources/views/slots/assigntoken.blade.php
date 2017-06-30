@@ -45,7 +45,7 @@ Assign Token to Patients
 	{{-- .row --}}
 	
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-6 col-md-offset-3 col-xs-12">
 			<div class="box box-solid box-primary">
 				<div class="box-header with-border">
 					<h3 class="box-title">Assign Token</h3>
@@ -55,13 +55,14 @@ Assign Token to Patients
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
-					<form action="" method="POST">
+					<form data-parsley-validate action="{{route('slots.store')}}" method="POST">
 						{{csrf_field()}}
+						<input type="hidden" value="{{$patient->id}}" name="patient_id">
 						<div class="row">
-							<div class="col-md-4 col-xs-12">
+							<div class="col-md-6 col-xs-12">
 								<div class="form-group {{ $errors->has('user')?'has-error':''}}">
 									<label class="control-label" for="user">Select Doctor</label>
-									<select style="text-align: center;" required="" name="user" id="user" class="form-control">
+									<select style="text-align: center;" required="" name="user" id="user" class="form-control" data-parsley-required-message="Please Select a Doctor">
 										<option value="" selected=""></option>
 										@foreach ($users as $u)
 										<option value="{{$u->id}}" >{{$u->name}}</option>
@@ -72,7 +73,7 @@ Assign Token to Patients
 								</div>
 							</div>
 
-							<div class="col-md-4 col-xs-12">
+							<div class="col-md-6 col-xs-12">
 								<div class="form-group">
 									<label>Date:</label>
 
@@ -80,7 +81,7 @@ Assign Token to Patients
 										<div class="input-group-addon">
 											<i class="fa fa-calendar"></i>
 										</div>
-										<input type="text" class="form-control pull-right" id="datepicker">
+										<input readonly="" required="" type="text" class="form-control pull-right" id="slotdate" name="slotdate" data-parsley-required-message="Please Select a Date">
 									</div>
 									<!-- /.input group -->
 								</div>
@@ -89,7 +90,12 @@ Assign Token to Patients
 						</div>
 						{{-- .row --}}
 						<div class="row">
-
+							<div class="col-md-6 col-xs-12">
+								<button type="submit" class="btn btn-success btn-block">Assign Token</button>
+							</div>
+							<div class="col-md-6 col-xs-12">
+								<a href="{{route('patients.show',$patient->id)}}" class="btn btn-danger btn-block">Cancel</a>
+							</div>
 						</div>
 						{{-- .row --}}
 					</form>
@@ -108,7 +114,7 @@ Assign Token to Patients
 	<script>
 		$(function(){
 				//Date picker
-				$('#datepicker').datepicker({
+				$('#slotdate').datepicker({
 					autoclose: true,
 					format: "dd/mm/yyyy",
 					startDate: new Date(),

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Slot extends Model
 {
+
+	protected $dates = ['slotdate'];
+
      public function user(){
     	return $this->belongsTo('App\User');
     }

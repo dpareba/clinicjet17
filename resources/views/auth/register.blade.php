@@ -82,7 +82,7 @@
                 <label for="phone" class="col-md-4 control-label">Contact Number</label>
 
                 <div class="col-md-6">
-                    <input id="phone" type="text" required=""  data-parsley-pattern="(7|8|9)\d{9}" class="form-control" name="phone" value="{{ old('phone') }}" data-parsley-required-message="*A valid phone is required to register" data-parsley-pattern-message="*Invalid Mobile Number" placeholder="Mobile Number">
+                    <input id="phone" type="text" required=""  data-parsley-pattern="(7|8|9)\d{9}" class="form-control" name="phone" value="{{ old('phone') }}" data-parsley-required-message="*A valid phone is required to register" data-parsley-pattern-message="*Invalid Mobile Number" placeholder="Mobile Number" maxlength="10">
 
                     @if ($errors->has('phone'))
                     <span class="help-block">
@@ -96,7 +96,7 @@
                 <label for="pan" class="col-md-4 control-label">PAN Number</label>
 
                 <div class="col-md-6">
-                    <input id="pan" type="text"   data-parsley-pattern="/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/" style="text-transform: uppercase;" class="form-control" name="pan" value="{{ old('pan') }}"  data-parsley-pattern-message="*Invalid PAN Number" placeholder="PAN Number">
+                    <input id="pan" type="text"   data-parsley-pattern="/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/" style="text-transform: uppercase;" class="form-control" name="pan" value="{{ old('pan') }}" maxlength="10" data-parsley-pattern-message="*Invalid PAN Number" placeholder="PAN Number">
 
                     @if ($errors->has('pan'))
                     <span class="help-block">
