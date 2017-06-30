@@ -220,7 +220,7 @@ Register new patients in clinic
 								<label class="control-label" for="phoneprimary">Primary Phone</label>
 								<div class="input-group">
 									<span class="input-group-addon" style="color: #3c8dbc;background-color:#FFFFFF;"><i class="fa fa-volume-control-phone"></i></span>
-									<input required="" data-parsley-type="number" value="{{old('phoneprimary')}}"  class="form-control" id="phoneprimary" name="phoneprimary" placeholder="ENTER PRIMARY PHONE NUMBER" minlength="10" maxlength="10" style="text-align: center;" data-parsley-required-message="Primary Phone Number is compulsory">
+									<input required="" data-parsley-pattern="(7|8|9)\d{9}" value="{{old('phoneprimary')}}"  class="form-control" id="phoneprimary" name="phoneprimary" placeholder="ENTER PRIMARY PHONE NUMBER" minlength="10" maxlength="10" style="text-align: center;" data-parsley-required-message="*A valid phone is required to register" data-parsley-pattern-message="*Invalid Mobile Number">
 								</div>
 								<span class="help-block">{{$errors->first('phoneprimary')}}</span>
 							</div>
@@ -230,7 +230,7 @@ Register new patients in clinic
 								<label class="control-label" for="phonealternate">Emergency Phone Number</label>
 								<div class="input-group">
 									<span class="input-group-addon" style="color: #3c8dbc;background-color:#FFFFFF;"><i class="fa fa-volume-control-phone"></i></span>
-									<input required="" data-parsley-type="digits" value="{{old('phonealternate')}}" type="text" class="form-control" id="phonealternate" name="phonealternate" placeholder="ENTER EMERGENCY PHONE NUMBER" minlength="10" maxlength="10" style="text-align: center;" data-parsley-required-message="Emergency Phone Number is compulsory">
+									<input required="" data-parsley-pattern="(7|8|9)\d{9}" value="{{old('phonealternate')}}" type="text" class="form-control" id="phonealternate" name="phonealternate" placeholder="ENTER EMERGENCY PHONE NUMBER" minlength="10" maxlength="10" style="text-align: center;" data-parsley-required-message="Emergency Phone Number is compulsory" data-parsley-pattern-message="*Invalid Mobile Number">
 								</div>
 								<span class="help-block">{{$errors->first('phonealternate')}}</span>
 							</div>
