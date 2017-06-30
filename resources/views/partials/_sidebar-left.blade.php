@@ -36,8 +36,15 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li class="{{Request::is('patients')?'active':''}}"><a href="{{ route('patients.index') }}"><i class="fa fa-circle-o text-yellow"></i> View All Patients</a></li>
-          <li class="{{Request::is('patients/create')?'active':''}}"><a href="{{route('patients.create')}}"><i class="fa fa-circle-o text-green"></i> Add New Patient</a></li>
+         
+         {{--  <li class="{{Request::is('patients')?'active':''}}"><a href="{{ route('patients.index') }}"><i class="fa fa-circle-o text-yellow"></i> View All Patients</a></li> --}}
+          @if (Auth::user()->doctype == "RECEPTIONIST")
+             <li class="{{Request::is('patients')?'active':''}}"><a href="{{ route('patients.index') }}"><i class="fa fa-circle-o text-yellow"></i> View All Patients</a></li>
+             <li class="{{Request::is('patients/create')?'active':''}}"><a href="{{route('patients.create')}}"><i class="fa fa-circle-o text-green"></i> Add New Patient</a></li>
+          @else
+             <li class="{{Request::is('patients')?'active':''}}"><a href=""><i class="fa fa-circle-o text-yellow"></i> View Patients</a></li>
+          @endif
+         
         </ul>
       </li>
       @endif
