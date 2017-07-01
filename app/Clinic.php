@@ -18,4 +18,8 @@ class Clinic extends Model
     public function visits(){
     	return $this->hasMany('App\Visit');
     }
+
+    public function slots(){
+        return $this->hasMany('App\Slot');
+   }
 }

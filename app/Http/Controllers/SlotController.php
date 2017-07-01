@@ -19,7 +19,7 @@ class SlotController extends Controller
      */
     public function index()
     {
-        //
+        return view('slots.index');
     }
 
     /**
@@ -46,35 +46,49 @@ class SlotController extends Controller
             'slotdate'=>'required'
             ]);
 
-        $slot = new Slot;
         $format = 'd/m/Y';
         $input = $request->slotdate;
         $date = Carbon::createFromFormat($format,$input);
+        $clinicid = Clinic::where(['cliniccode'=>Session::get('cliniccode')])->first()->id;
+
+        $patientdup = Slot::where('user_id','=',$request->user)->where('slotdate','=',$date->toDateString())->where('clinic_id','=',$clinicid)->where('patient_id','=',$request->patient_id)->get();
+        //dd($patientdup);
+        if($patientdup->isEmpty()){
+            $slot = new Slot;
+
         //$dateadd = Carbon::createFromFormat($format,$input)->addDay(1);
         //dd($input . ' ' . $date);
-        
-        $slot->slotdate = $date;
-        $slot->user_id = $request->user;
-        $slot->patient_id = $request->patient_id;
+
+            $slot->slotdate = $date;
+            $slot->user_id = $request->user;
+            $slot->patient_id = $request->patient_id;
+
+            $slot->clinic_id = $clinicid;
         //dd($date->toDateString());
         //$slots = Slot::where('user_id','=',$request->user)->where('slotdate','>',$date)->where('slotdate','<',$date)->orderBy('token','DESC')->first();
-        $slots = Slot::where('user_id','=',$request->user)->where('slotdate','=',$date->toDateString())->orderBy('token','DESC')->first();
+            $slots = Slot::where('user_id','=',$request->user)->where('slotdate','=',$date->toDateString())->where('clinic_id','=',$clinicid)->orderBy('token','DESC')->first();
         // $slodt = Carbon::createFromFormat($format,$input);
         //$slots = Slot::all();
        //dd($slots);
        //$slotdate = Carbon::createFromTimestamp($)
-        if ($slots == null) {
-            $slot->token = 1;
-        }else{
-            $slot->token = $slots->token + 1;
-        }
+            if ($slots == null) {
+                $slot->token = 1;
+            }else{
+                $slot->token = $slots->token + 1;
+            }
         //return $dt;
-        $slot->save();
+            $slot->save();
 
-        Session::flash('message','Success!!');
-        Session::flash('text','New Token Number generated successfully!!');
-        Session::flash('type','success');
-        Session::flash('timer','5000');
+            Session::flash('message','Success!!');
+            Session::flash('text','New Token Number generated successfully!!');
+            Session::flash('type','success');
+            Session::flash('timer','5000');
+        }else{
+            Session::flash('message','Failed!!');
+            Session::flash('text','Patient has already been issued token for this doctor on this day!!');
+            Session::flash('type','error');
+        }
+        
 
         return redirect()->route('patients.index');
     }

@@ -28,7 +28,7 @@
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
       @if ((!Auth::user()->isRemoteDoc))
-      <li class="treeview {{(Request::is('patients/create')||Request::is('patients'))?'active':''}}">
+      <li class="treeview {{(Request::is('patients/create')||Request::is('patients'))?'active':''||Request::is('slots')?'active':''}}">
         <a href="#">
           <i class="fa fa-stethoscope"></i> <span>My Clinic Patients</span>
           <span class="pull-right-container">
@@ -41,6 +41,7 @@
           @if (Auth::user()->doctype == "RECEPTIONIST")
              <li class="{{Request::is('patients')?'active':''}}"><a href="{{ route('patients.index') }}"><i class="fa fa-circle-o text-yellow"></i> View All Patients</a></li>
              <li class="{{Request::is('patients/create')?'active':''}}"><a href="{{route('patients.create')}}"><i class="fa fa-circle-o text-green"></i> Add New Patient</a></li>
+             <li class="{{Request::is('slots')?'active':''}}"><a href="{{route('slots.index')}}"><i class="fa fa-circle-o text-aqua"></i> View Today's Appointments</a></li>
           @else
              <li class="{{Request::is('patients')?'active':''}}"><a href=""><i class="fa fa-circle-o text-yellow"></i> View Patients</a></li>
           @endif
