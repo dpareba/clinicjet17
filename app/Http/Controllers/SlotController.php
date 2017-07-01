@@ -9,17 +9,27 @@ use App\Clinic;
 use Session;
 use App\Slot;
 use Carbon\Carbon;
+use DB;
 
 class SlotController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('slots.index');
+    {   
+        $clinicid = Clinic::where(['cliniccode'=>Session::get('cliniccode')])->first()->id;
+        $dt = Carbon::now();
+        // $dtdate = $dt->toDateString();
+        // dd($dtdate);
+        $usercount = Slot::where('clinic_id',$clinicid)->where('slotdate','=',$dt->toDateString())->count(DB::raw('DISTINCT user_id'));
+        dd($usercount);
+        //return view('slots.index');
     }
 
     /**
