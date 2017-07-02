@@ -20,5 +20,23 @@ View/Search Patients with Token Numbers
 		</div>
 	</div>
 </div>
+
+<div class="row">
+	{{-- @foreach ($slots as $slot)
+		{{$slot->token}} <br>
+	@endforeach --}}
+
+	{{-- {{$s->groupBy('user_id')}}; --}}
+	{{-- {{$s-}} --}}
+	{{-- @foreach ($s as $se)
+		{{$se->user->name}} <br>
+		{{$se}}
+	@endforeach --}}
+	@foreach ($slots as $s)
+		{{-- {{$s[0]['user_id']}} --}}
+		{{$s}}
+	@endforeach
+	
+</div>
 @stop
 {{-- .row --}}

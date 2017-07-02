@@ -27,9 +27,22 @@ class SlotController extends Controller
         $dt = Carbon::now();
         // $dtdate = $dt->toDateString();
         // dd($dtdate);
-        $usercount = Slot::where('clinic_id',$clinicid)->where('slotdate','=',$dt->toDateString())->count(DB::raw('DISTINCT user_id'));
-        dd($usercount);
-        //return view('slots.index');
+        // $usercount = Slot::where('clinic_id',$clinicid)->where('slotdate','=',$dt->toDateString())->count(DB::raw('DISTINCT user_id'));
+        $slots = Slot::where('clinic_id',$clinicid)->where('slotdate','=',$dt->toDateString())->get();
+         
+        //dd($slots);
+        //$usercount = $slots->groupBy('user_id')->count();
+        $slots = $slots->groupBy('user_id');
+        $slots->toArray();
+        //dd($slotsgrp);
+        //$docname->toArray();
+        //$docname->implode('token');
+        //dd($usercount);
+        //$docname = $slots->keyBy('user_id');
+        //dd($docname);
+        //return view('slots.index')->withDocname($docname);
+        //$s = Slot::all();
+        return view('slots.index')->withSlots($slots);
     }
 
     /**
